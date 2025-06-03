@@ -12,7 +12,7 @@ import {
   View,
 } from 'react-native';
 import { Task } from './index';
-export default function TabTwoScreen() {
+const TabTwoScreen = () => {
   const { index } = useLocalSearchParams<{ index?: string }>();
   const router = useRouter();
   const [task, setTask] = useState('');
@@ -71,7 +71,7 @@ export default function TabTwoScreen() {
       </TouchableOpacity>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -102,3 +102,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 });
+
+export default TabTwoScreen;

@@ -11,6 +11,7 @@ import {
   FlatList,
   SafeAreaView,
   StyleSheet,
+  Text,
   View,
 } from 'react-native';
 
@@ -68,13 +69,17 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
-      <View style={styles.homeSection}></View>
+      <View style={styles.homeSection}>
+        <Text style={styles.titleText}>
+          Welcome to the Task Manager! Here you can manage your tasks easily.
+        </Text>
+      </View>
       <MainTitle title="Tasks" />
       {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <FlatList
-          style={{ width: '100%', height: 'auto' }} // Ensure the FlatList takes full width
+          style={{ width: '100%', height: 'auto' }}
           data={tasks}
           scrollEnabled={true}
           keyExtractor={(_, index) => index.toString()}
@@ -84,7 +89,7 @@ export default function HomeScreen() {
               //@ts-ignore
               onEdit={() =>
                 router.push({ pathname: '/tasks', params: { index } })
-              } // Corrected path
+              }
               onDelete={() => handleDelete(index)}
               onToggleComplete={() => handleToggleComplete(index)}
             />
@@ -108,9 +113,15 @@ const styles = StyleSheet.create({
   homeSection: {
     width: '100%',
     height: 250,
-    backgroundColor: '#ecf0f1',
+    backgroundColor: '#1abc9c',
     borderRadius: 10,
     padding: 20,
     marginBottom: 20,
+    justifyContent: 'center',
+  },
+  titleText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#fff',
   },
 });

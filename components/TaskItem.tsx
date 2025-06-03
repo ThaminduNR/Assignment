@@ -43,8 +43,7 @@ export default TaskItem;
 const styles = StyleSheet.create({
   taskContainer: {
     width: '100%',
-    height: 70,
-    // flexDirection: 'row',
+    height: 80,
     alignItems: 'center',
     backgroundColor: '#f1f1f1',
     padding: 10,
@@ -52,7 +51,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   taskText: {
-    fontSize: 16,
+    fontSize: 18,
   },
 
   completed: {
