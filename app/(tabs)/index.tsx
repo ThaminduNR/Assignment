@@ -1,10 +1,18 @@
 import MainTitle from '@/components/MainTitle';
 import TaskItem from '@/components/TaskItem';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
-import { Alert, FlatList, SafeAreaView, StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {
+  ActivityIndicator,
+  Alert,
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  View,
+} from 'react-native';
 
 export interface Task {
   text: string;
@@ -13,12 +21,17 @@ export interface Task {
 export default function HomeScreen() {
   const router = useRouter();
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    //const unsubscribe = router.addListener?.('focus', loadTasks);
     loadTasks();
-    //return unsubscribe;
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      loadTasks();
+    }, []),
+  );
 
   const loadTasks = async () => {
     try {
@@ -26,6 +39,8 @@ export default function HomeScreen() {
       if (stored) setTasks(JSON.parse(stored));
     } catch (err) {
       console.error('Failed to load tasks', err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -55,21 +70,27 @@ export default function HomeScreen() {
       <StatusBar style="auto" />
       <View style={styles.homeSection}></View>
       <MainTitle title="Tasks" />
-      <FlatList
-        style={{ width: '100%', height: 'auto' }} // Ensure the FlatList takes full width
-        data={tasks}
-        scrollEnabled={true}
-        keyExtractor={(_, index) => index.toString()}
-        renderItem={({ item, index }) => (
-          <TaskItem
-            item={item}
-            //@ts-ignore
-            onEdit={() => router.push({ pathname: '/task', params: { index } })}
-            onDelete={() => handleDelete(index)}
-            onToggleComplete={() => handleToggleComplete(index)}
-          />
-        )}
-      />
+      {loading ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : (
+        <FlatList
+          style={{ width: '100%', height: 'auto' }} // Ensure the FlatList takes full width
+          data={tasks}
+          scrollEnabled={true}
+          keyExtractor={(_, index) => index.toString()}
+          renderItem={({ item, index }) => (
+            <TaskItem
+              item={item}
+              //@ts-ignore
+              onEdit={() =>
+                router.push({ pathname: '/tasks', params: { index } })
+              } // Corrected path
+              onDelete={() => handleDelete(index)}
+              onToggleComplete={() => handleToggleComplete(index)}
+            />
+          )}
+        />
+      )}
     </SafeAreaView>
   );
 }
