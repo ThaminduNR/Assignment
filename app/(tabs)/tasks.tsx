@@ -49,7 +49,7 @@ const TabTwoScreen = () => {
       }
 
       await AsyncStorage.setItem('TASKS', JSON.stringify(updated));
-      router.back();
+      // router.back();
     } catch (err) {
       console.error('Failed to save task', err);
     }

@@ -1,10 +1,11 @@
 import MainTitle from '@/components/MainTitle';
 import TaskItem from '@/components/TaskItem';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -19,7 +20,7 @@ export interface Task {
   text: string;
   completed: boolean;
 }
-export default function HomeScreen() {
+const HomeScreen = () => {
   const router = useRouter();
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -29,7 +30,7 @@ export default function HomeScreen() {
   }, []);
 
   useFocusEffect(
-    React.useCallback(() => {
+    useCallback(() => {
       loadTasks();
     }, []),
   );
@@ -70,16 +71,21 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <View style={styles.homeSection}>
-        <Text style={styles.titleText}>
-          Welcome to the Task Manager! Here you can manage your tasks easily.
-        </Text>
+        <View style={styles.heroUp}>
+          <Text style={styles.titleText}>
+            Welcome to the Task Manager! Here you can manage your tasks easily.
+          </Text>
+        </View>
+        <View style={styles.heroDown}>
+          <FontAwesome6 name="square-upwork" size={44} color="black" />
+        </View>
       </View>
-      <MainTitle title="Tasks" />
+      <MainTitle title="Tasks List" />
       {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <FlatList
-          style={{ width: '100%', height: 'auto' }}
+          style={styles.list}
           data={tasks}
           scrollEnabled={true}
           keyExtractor={(_, index) => index.toString()}
@@ -98,30 +104,43 @@ export default function HomeScreen() {
       )}
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
     flex: 1,
+    marginTop: 30,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#fff',
     padding: 20,
   },
+  list: {
+    width: '100%',
+    height: 'auto',
+  },
 
   homeSection: {
     width: '100%',
     height: 250,
-    backgroundColor: '#1abc9c',
+    flex: 1,
+    backgroundColor: '#3498db',
     borderRadius: 10,
     padding: 20,
     marginBottom: 20,
-    justifyContent: 'center',
+    gap: 30,
   },
   titleText: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#fff',
   },
+  heroUp: {
+    flex: 1,
+  },
+  heroDown: {
+    flex: 1,
+  },
 });
+
+export default HomeScreen;

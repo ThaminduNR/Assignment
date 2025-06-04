@@ -5,7 +5,7 @@ import { Platform } from 'react-native';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
-import Feather from '@expo/vector-icons/Feather';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -36,9 +36,9 @@ export default function TabLayout() {
       <Tabs.Screen
         name="tasks"
         options={{
-          title: 'Explore',
+          title: 'Tasks',
           tabBarIcon: ({ color }) => (
-            <Feather name="settings" size={24} color="white" />
+            <FontAwesome5 name="tasks" size={24} color={color} />
           ),
         }}
       />
