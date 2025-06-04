@@ -12,7 +12,6 @@ import {
   FlatList,
   SafeAreaView,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 
@@ -71,23 +70,16 @@ const HomeScreen = () => {
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <View style={styles.homeSection}>
-        <View style={styles.heroUp}>
-          <Text style={styles.titleText}>
-            Welcome to the Task Manager! Here you can manage your tasks easily.
-          </Text>
-        </View>
-        <View style={styles.heroDown}>
-          <LottieView
-            source={require('../../assets/animation/task.json')}
-            autoPlay
-            loop
-            style={{
-              flex: 1,
-              width: '100%',
-              height: '100%',
-            }}
-          />
-        </View>
+        <LottieView
+          source={require('../../assets/animation/task2.json')}
+          autoPlay
+          loop
+          style={{
+            flex: 1,
+            width: '100%',
+            height: '100%',
+          }}
+        />
       </View>
 
       <MainTitle title="Tasks List" />
@@ -121,8 +113,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: '#fff',
     padding: 16,
   },
@@ -133,12 +123,14 @@ const styles = StyleSheet.create({
 
   homeSection: {
     width: '100%',
-    height: 230,
-    backgroundColor: '#54a0ff',
-    padding: 20,
+    height: 250,
+    backgroundColor: '#f5f6fa',
+    padding: 10,
     marginBottom: 20,
     gap: 30,
     borderRadius: 10,
+    borderWidth: 3,
+    borderColor: '#54a0ff',
   },
   titleText: {
     fontSize: 24,
@@ -149,7 +141,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   heroDown: {
-    flex: 1,
+    width: '100%',
+    height: 200,
+
+    backgroundColor: 'white',
+    borderRadius: 10,
   },
 });
 

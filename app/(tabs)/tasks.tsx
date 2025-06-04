@@ -70,7 +70,7 @@ const TabTwoScreen = () => {
           style={styles.input}
         />
       </View>
-      <Text style={styles.taskDownText}>Add your task Here </Text>
+      <Text style={styles.taskDownText}>Add your task Here</Text>
       <View style={styles.taskDown}>
         <TouchableOpacity onPress={saveTask} style={styles.button}>
           <AntDesign name="addfile" size={24} color="white" />
