@@ -1,4 +1,5 @@
 import MainTitle from '@/components/MainTitle';
+import AntDesign from '@expo/vector-icons/AntDesign';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
@@ -60,15 +61,22 @@ const TabTwoScreen = () => {
       <View>
         <MainTitle title={'Add Task'} />
       </View>
-      <TextInput
-        placeholder="Enter task"
-        value={task}
-        onChangeText={setTask}
-        style={styles.input}
-      />
-      <TouchableOpacity onPress={saveTask} style={styles.button}>
-        <Text style={styles.btnText}>Save Task</Text>
-      </TouchableOpacity>
+      <View style={styles.taskUp}>
+        <TextInput
+          placeholder="Enter your task"
+          value={task}
+          onChangeText={setTask}
+          multiline={true}
+          style={styles.input}
+        />
+      </View>
+      <Text style={styles.taskDownText}>Add your task Here </Text>
+      <View style={styles.taskDown}>
+        <TouchableOpacity onPress={saveTask} style={styles.button}>
+          <AntDesign name="addfile" size={24} color="white" />
+          <Text style={styles.btnText}>Save Task</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
@@ -77,29 +85,46 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
     padding: 20,
     marginTop: 40,
   },
   input: {
     width: '100%',
-    height: 100,
+    height: 350,
     borderWidth: 1,
     padding: 10,
     marginBottom: 10,
+    borderColor: '#dfe6e9',
+    borderRadius: 10,
+    textAlignVertical: 'top',
+    fontSize: 20,
   },
   button: {
     width: '100%',
     height: 50,
-    backgroundColor: '#007bff',
+    backgroundColor: '#54a0ff',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 5,
-    marginTop: 200,
+    borderRadius: 10,
+    flexDirection: 'row',
+    gap: 10,
   },
   btnText: {
     color: '#fff',
     fontSize: 18,
+  },
+  taskUp: {
+    flex: 1,
+  },
+  taskDown: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  taskDownText: {
+    fontSize: 18,
+    color: '#dfe6e9',
+    marginBottom: 10,
+    textAlign: 'center',
   },
 });
 

@@ -1,10 +1,10 @@
 import MainTitle from '@/components/MainTitle';
 import TaskItem from '@/components/TaskItem';
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import LottieView from 'lottie-react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -77,9 +77,19 @@ const HomeScreen = () => {
           </Text>
         </View>
         <View style={styles.heroDown}>
-          <FontAwesome6 name="square-upwork" size={44} color="black" />
+          <LottieView
+            source={require('../../assets/animation/task.json')}
+            autoPlay
+            loop
+            style={{
+              flex: 1,
+              width: '100%',
+              height: '100%',
+            }}
+          />
         </View>
       </View>
+
       <MainTitle title="Tasks List" />
       {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
@@ -87,6 +97,7 @@ const HomeScreen = () => {
         <FlatList
           style={styles.list}
           data={tasks}
+          contentContainerStyle={{ paddingHorizontal: 10 }}
           scrollEnabled={true}
           keyExtractor={(_, index) => index.toString()}
           renderItem={({ item, index }) => (
@@ -113,7 +124,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#fff',
-    padding: 20,
+    padding: 16,
   },
   list: {
     width: '100%',
@@ -122,13 +133,12 @@ const styles = StyleSheet.create({
 
   homeSection: {
     width: '100%',
-    height: 250,
-    flex: 1,
-    backgroundColor: '#3498db',
-    borderRadius: 10,
+    height: 230,
+    backgroundColor: '#54a0ff',
     padding: 20,
     marginBottom: 20,
     gap: 30,
+    borderRadius: 10,
   },
   titleText: {
     fontSize: 24,
